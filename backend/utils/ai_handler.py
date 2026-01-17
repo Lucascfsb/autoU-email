@@ -8,8 +8,24 @@ def ai_configuration():
     api_key = os.getenv("GOOGLE_API_KEY")
     return genai.Client(api_key=api_key)
 
-def analyze_email(email_text):
+def parse_ai_response(raw_result: str) -> dict:
+    if "RESPOSTA SUGERIDA:" in raw_result:
+        parts = raw_result.split("RESPOSTA SUGERIDA:")
+        classification = parts[0].replace("CLASSIFICAÇÃO:", "").strip()
+        suggestion = parts[1].strip()
+    else:
+        classification = "Indefinido"
+        suggestion = raw_result
+
+    return {
+        "classificacao": classification,
+        "sugestao": suggestion,
+        "cor": "produtivo" if "produtivo" in classification.lower() else "improdutivo"
+    }
+
+def analyze_email(email_text: str) -> dict:
     client = ai_configuration()
+    
     prompt = f"""
     Aja como um triador de emails do setor financeiro rigoroso.
     Analise o texto abaixo e siga estas regras:
@@ -29,4 +45,5 @@ def analyze_email(email_text):
         model='gemma-3-4b-it',
         contents=prompt
     )
-    return response.text
+    
+    return parse_ai_response(response.text)
