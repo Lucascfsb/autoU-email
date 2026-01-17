@@ -29,8 +29,8 @@ async def handle_analyze_request(
         raise HTTPException(status_code=400, detail="O conteúdo do e-mail não pode estar vazio.")
 
     try:
-        resultado = analyze_email(email_content)
-        return resultado
+        result = analyze_email(email_content)
+        return result
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Erro interno no processamento: {str(e)}")

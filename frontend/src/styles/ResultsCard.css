@@ -1,4 +1,8 @@
-/* Card de Resultados */
+/* ========================================
+  CARD DE RESULTADOS
+======================================== */
+
+/* Estado vazio */
 .empty-state {
   text-align: center;
   padding: 40px 20px;
@@ -8,7 +12,7 @@
   width: 80px;
   height: 80px;
   margin: 0 auto 20px;
-  background: var(--accent-purple-dark);
+  background: rgba(124, 58, 237, 0.1);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -27,6 +31,7 @@
   margin-bottom: 20px;
 }
 
+/* Badges de confiança */
 .trust-badges {
   display: flex;
   gap: 15px;
@@ -35,12 +40,17 @@
 }
 
 .trust-badges span {
-  background: var(--accent-purple-dark);
+  background: rgba(124, 58, 237, 0.1);
   padding: 8px 16px;
   border-radius: 20px;
   font-size: 14px;
   color: var(--text-primary);
+  border: 1px solid var(--accent-purple);
 }
+
+/* ========================================
+  CONTEÚDO DO RESULTADO
+======================================== */
 
 .result-content {
   display: flex;
@@ -50,40 +60,48 @@
   animation: fadeIn 0.4s ease-out;
 }
 
+@keyframes fadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(10px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
 
-
-/* Badge de Classificação (Dinâmico) */
+/* Badge de classificação */
 .result-badge {
   align-self: flex-start;
-  padding: 6px 16px;
-  border-radius: 6px;
+  padding: 8px 16px;
+  border-radius: 8px;
   font-weight: 700;
   font-size: 14px;
   text-transform: uppercase;
-  background: var(--bg-tertiary);
-  color: var(--text-primary);
+  letter-spacing: 0.5px;
 }
 
 .result-badge.produtivo {
   background: rgba(34, 197, 94, 0.2);
   color: var(--accent-green);
-  border: 1px solid var(--accent-green);
+  border: 2px solid var(--accent-green);
 }
 
 .result-badge.improdutivo {
   background: rgba(234, 179, 8, 0.2);
   color: var(--accent-yellow);
-  border: 1px solid var(--accent-yellow);
+  border: 2px solid var(--accent-yellow);
 }
 
+/* ========================================
+  CAIXA DE SUGESTÃO
+======================================== */
 
-
-/* Caixa de Sugestão */
 .suggestion-box {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  text-align: left;
 }
 
 .suggestion-box label {
@@ -91,16 +109,22 @@
   font-weight: 600;
   color: var(--text-muted);
   text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .suggestion-text {
-  background: var(--bg-secondary);
+  background: var(--bg-primary);
   border: 1px solid var(--bg-tertiary);
   padding: 16px;
   border-radius: 8px;
   color: var(--text-primary);
+  line-height: 1.6;
   min-height: 100px;
 }
+
+/* ========================================
+  BOTÃO COPIAR
+======================================== */
 
 .btn-copy {
   display: flex;
@@ -108,57 +132,21 @@
   justify-content: center;
   gap: 8px;
   background: var(--accent-purple);
-  border: 1px solid var(--bg-tertiary);
   color: var(--text-primary);
   padding: 12px;
   border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
+  border: none;
 }
 
 .btn-copy:hover {
   filter: brightness(1.1);
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-purple);
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-
-
-.file-drop-zone {
-  border: 2px dashed #3F3F46;
-  border-radius: 12px;
-  padding: 40px 20px;
-  text-align: center;
-  transition: all 0.3s ease;
-  background: var(--bg-tertiary);
-  cursor: pointer;
-  position: relative;
-}
-
-/* Quando o arquivo está em cima da zona */
-.file-drop-zone.dragging {
-  border-color: #7C3AED;
-  background: rgba(124, 58, 237, 0.1);
-  transform: scale(1.02);
-}
-
-.file-drop-zone input {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  opacity: 0; /* Esconde o input feio do navegador */
-  cursor: pointer;
-}
-
-.file-drop-zone label {
-  font-weight: 500;
-  color: var(--text-primary);
-  pointer-events: none; /* Garante que o click passe para o input */
+.btn-copy:active {
+  transform: translateY(0);
 }

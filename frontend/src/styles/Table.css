@@ -1,8 +1,12 @@
-/* Tabela */
+/* ========================================
+  ANÁLISES RECENTES
+======================================== */
+
 .recent-analyses {
   margin-top: 40px;
 }
 
+/* Header da seção */
 .section-header {
   display: flex;
   justify-content: space-between;
@@ -23,21 +27,24 @@
   cursor: pointer;
   font-size: 14px;
   padding: 8px 16px;
-  transition: opacity 0.2s;
+  transition: opacity 0.2s ease;
 }
 
 .btn-text:hover {
   opacity: 0.8;
 }
 
+/* ========================================
+  TABELA
+======================================== */
+
 .custom-table {
   width: 100%;
   border-collapse: collapse;
   background: var(--bg-secondary);
   border-radius: 12px;
-  margin-top: 15px;
-  color: var(--text-primary);
   overflow: hidden;
+  color: var(--text-primary);
 }
 
 .custom-table th {
@@ -48,6 +55,7 @@
   text-transform: uppercase;
   color: var(--text-muted);
   font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
 .custom-table td {
@@ -56,14 +64,35 @@
   text-align: center;
 }
 
+.custom-table tbody tr {
+  transition: background 0.2s ease;
+}
+
+.custom-table tbody tr:hover {
+  background: rgba(124, 58, 237, 0.05);
+}
+
+/* ========================================
+  BADGES DA TABELA
+======================================== */
+
 .badge {
-  padding: 4px 12px;
+  display: inline-block;
+  padding: 6px 12px;
   border-radius: 12px;
   font-size: 12px;
   font-weight: 600;
+  text-transform: uppercase;
 }
 
 .badge.green {
-  background: #22c55e33;
+  background: rgba(34, 197, 94, 0.2);
   color: var(--accent-green);
+  border: 1px solid var(--accent-green);
+}
+
+.badge.yellow {
+  background: rgba(234, 179, 8, 0.2);
+  color: var(--accent-yellow);
+  border: 1px solid var(--accent-yellow);
 }

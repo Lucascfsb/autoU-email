@@ -1,4 +1,7 @@
-/* Footer */
+/* ========================================
+  FOOTER
+======================================== */
+
 .main-footer {
   margin-top: 40px;
   padding: 20px 40px;
@@ -10,6 +13,7 @@
   box-shadow: 0 -3px 15px -5px var(--shadow-purple);
 }
 
+/* Lado esquerdo */
 .footer-left {
   display: flex;
   align-items: center;
@@ -19,7 +23,7 @@
 .logo-icon-small {
   width: 32px;
   height: 32px;
-  background: linear-gradient(135deg, var(--accent-purple) 0%, var(--accent-purple-dark) 100%);
+  background: linear-gradient(135deg, var(--accent-purple), var(--accent-purple-dark));
   border-radius: 8px;
   display: flex;
   align-items: center;
@@ -27,6 +31,7 @@
   font-size: 18px;
 }
 
+/* Links do footer */
 .footer-links {
   display: flex;
   gap: 30px;
@@ -35,7 +40,7 @@
 .footer-links span {
   color: var(--text-muted);
   cursor: pointer;
-  transition: color 0.2s;
+  transition: color 0.2s ease;
 }
 
 .footer-links span:hover {

@@ -3,7 +3,6 @@ import "./App.css";
 import { analyzeEmail } from "./services/api";
 
 function App() {
-  // Estado para inputs do usuário
   const [emailInputs, setEmailInputs] = useState({
     textContent: "",
     uploadedFile: null,
@@ -11,23 +10,19 @@ function App() {
 
   const fileInputRef = useRef(null);
 
-  // Estado para controle de análise
   const [analysisStatus, setAnalysisStatus] = useState({
     isLoading: false,
     analysisResult: null,
   });
 
-  // Estado para controle de tabs
   const [currentInputTab, setCurrentInputTab] = useState("text");
 
-  // Estado para controle de drag and drop
   const [isFileDragging, setIsFileDragging] = useState(false);
 
   const triggerFileSelectPopup = () => {
     fileInputRef.current.click();
   };
 
-  // Handler para eventos de arrastar arquivo
   const handleFileDragEvent = (event) => {
     event.preventDefault();
     event.stopPropagation();
@@ -43,7 +38,6 @@ function App() {
     }
   };
 
-  // Handler para soltar arquivo na zona de drop
   const handleFileDropInZone = (event) => {
     event.preventDefault();
     event.stopPropagation();
@@ -58,7 +52,6 @@ function App() {
     }
   };
 
-  // Handler para seleção manual de arquivo
   const handleFileSelection = (event) => {
     const selectedFile = event.target.files[0];
     if (selectedFile) {
@@ -66,13 +59,11 @@ function App() {
     }
   };
 
-  // Handler para mudança de texto
   const handleTextContentChange = (event) => {
     const newTextContent = event.target.value;
     setEmailInputs({ ...emailInputs, textContent: newTextContent });
   };
 
-  // Validação de inputs
   const validateEmailInputs = () => {
     const isTextTabActive = currentInputTab === "text";
     const isFileTabActive = currentInputTab === "file";
@@ -90,7 +81,6 @@ function App() {
     return true;
   };
 
-  // Função principal de análise de email
   const handleEmailAnalysisSubmission = async () => {
     const isInputValid = validateEmailInputs();
     if (!isInputValid) return;
@@ -120,7 +110,6 @@ function App() {
     }
   };
 
-  // Handler para copiar resposta sugerida
   const handleCopySuggestedResponse = () => {
     const suggestedResponse = analysisStatus.analysisResult?.suggestion;
     if (suggestedResponse) {
@@ -128,7 +117,6 @@ function App() {
     }
   };
 
-  // Handler para trocar tab
   const handleTabChange = (tabName) => {
     setCurrentInputTab(tabName);
   };
@@ -149,10 +137,10 @@ function App() {
         <div className="header-right">
           <div className="user-profile">
             <div className="user-info">
-              <span className="user-name">Lucas Castro</span>
+              <span className="user-name">Usuário</span>
               <span className="user-role">Admin</span>
             </div>
-            <div className="user-avatar">LC</div>
+            <div className="user-avatar">US</div>
           </div>
         </div>
       </header>
@@ -171,7 +159,7 @@ function App() {
             <div className="metric-info">
               <div className="metric-header">
                 <h3>1,247</h3>
-                <span className="growth-tag green-text">+12%</span>
+                <span className="growth-tag green-text">12%</span>
               </div>
               <p>Emails Processados</p>
             </div>
@@ -260,7 +248,7 @@ function App() {
                     onChange={handleFileSelection}
                     className="file-input-hidden"
                   />
-                  <label htmlFor="file-upload" className="file-drop-label">
+                  <label className="file-drop-label">
                     {emailInputs.uploadedFile
                       ? `✅ ${emailInputs.uploadedFile.name}`
                       : "📁 Clique para selecionar ou arraste o arquivo aqui"}

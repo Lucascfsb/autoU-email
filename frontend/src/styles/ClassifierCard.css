@@ -1,4 +1,8 @@
-/* Card de Classificação */
+/* ========================================
+  CARD DE CLASSIFICAÇÃO
+======================================== */
+
+/* Container principal */
 .card-panel {
   background: var(--bg-secondary);
   border-radius: 16px;
@@ -7,6 +11,7 @@
   border: 1px solid var(--bg-tertiary);
 }
 
+/* Header do card */
 .card-header {
   padding: 20px;
   color: var(--text-primary);
@@ -23,6 +28,7 @@
   opacity: 0.9;
 }
 
+/* Gradientes do header */
 .purple-gradient { 
   background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue)); 
 }
@@ -31,6 +37,7 @@
   background: linear-gradient(90deg, var(--accent-pink), var(--accent-purple)); 
 }
 
+/* Body do card */
 .card-body {
   padding: 20px;
 }
@@ -40,6 +47,10 @@
   justify-content: center;
   align-items: center;
 }
+
+/* ========================================
+  TABS DE NAVEGAÇÃO
+======================================== */
 
 .tab-selector {
   display: flex;
@@ -56,7 +67,7 @@
   color: var(--text-muted);
   font-size: 16px;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.3s ease;
   border-radius: 8px;
   border: 1px solid var(--accent-purple);
 }
@@ -64,8 +75,12 @@
 .tab-selector button.active {
   background: var(--accent-purple);
   color: var(--text-primary);
-  box-shadow: 0 4px 20px var(--accent-purple-dark);
+  box-shadow: 0 4px 20px var(--shadow-purple);
 }
+
+/* ========================================
+  INPUTS
+======================================== */
 
 .input-group {
   margin-bottom: 20px;
@@ -88,6 +103,7 @@ textarea {
   padding: 15px;
   font-family: inherit;
   resize: vertical;
+  transition: border-color 0.3s ease;
 }
 
 textarea:focus {
@@ -95,17 +111,28 @@ textarea:focus {
   border-color: var(--accent-purple);
 }
 
+/* ========================================
+  ZONA DE UPLOAD
+======================================== */
+
 .file-drop-zone {
   border: 2px dashed var(--accent-purple);
   border-radius: 12px;
   text-align: center;
   margin-bottom: 20px;
-  transition: background 0.3s;
+  transition: all 0.3s ease;
   position: relative;
 }
 
 .file-drop-zone:hover {
-  background: var(--accent-purple);
+  background: rgba(124, 58, 237, 0.05);
+  border-color: var(--accent-purple);
+}
+
+.file-drop-zone.dragging {
+  background: rgba(124, 58, 237, 0.15);
+  border-color: var(--accent-green);
+  border-width: 3px;
 }
 
 .file-drop-zone input[type="file"] {
@@ -122,7 +149,12 @@ textarea:focus {
   width: 100%;
   min-height: 150px;
   padding: 40px;
+  transition: color 0.3s ease;
 }
+
+/* ========================================
+  INFO BOX
+======================================== */
 
 .info-box-tip {
   border-radius: 12px;
@@ -130,14 +162,14 @@ textarea:focus {
   display: flex;
   gap: 12px;
   margin: 20px 0;
+  background: rgba(124, 58, 237, 0.1);
+  border: 1px solid var(--accent-purple);
 }
 
 .info-icon {
   width: 20px;
   height: 20px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
+  flex-shrink: 0;
   font-size: 16px;
 }
 
@@ -148,6 +180,10 @@ textarea:focus {
   margin: 0;
 }
 
+/* ========================================
+  BOTÕES
+======================================== */
+
 .btn-analyze {
   width: 100%;
   background: var(--accent-purple);
@@ -157,13 +193,18 @@ textarea:focus {
   font-weight: 700;
   font-size: 1rem;
   cursor: pointer;
-  transition: transform 0.2s, filter 0.2s;
+  transition: all 0.2s ease;
   border: none;
 }
 
-.btn-analyze:hover {
+.btn-analyze:hover:not(:disabled) {
   filter: brightness(1.1);
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--shadow-purple);
+}
+
+.btn-analyze:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 .btn-analyze:disabled {
