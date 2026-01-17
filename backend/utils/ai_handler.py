@@ -18,9 +18,9 @@ def parse_ai_response(raw_result: str) -> dict:
         suggestion = raw_result
 
     return {
-        "classificacao": classification,
-        "sugestao": suggestion,
-        "cor": "produtivo" if "produtivo" in classification.lower() else "improdutivo"
+        "classification": classification,
+        "suggestion": suggestion,
+        "color": "produtivo" if "produtivo" in classification.lower() else "improdutivo"
     }
 
 def analyze_email(email_text: str) -> dict:

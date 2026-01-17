@@ -1,0 +1,28 @@
+/* Estilos globais e variáveis */
+:root {
+  --bg-primary: #18181B;
+  --bg-secondary: #27272A;
+  --bg-tertiary: #3F3F46;
+  --text-primary: #F4F4F5;
+  --text-secondary: #E4E4E7;
+  --text-muted: #A1A1AA;
+  --accent-purple: #7c3aed;
+  --accent-purple-dark: #4c1d95;
+  --accent-blue: #3b82f6;
+  --accent-green: #22c55e;
+  --accent-yellow: #eab308;
+  --accent-orange: #f97316;
+  --accent-pink: #db2777;
+  --shadow-purple: #7c3aed80;
+}
+
+body {
+  color: var(--text-secondary);
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+}

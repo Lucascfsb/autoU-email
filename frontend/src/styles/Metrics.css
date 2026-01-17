@@ -1,0 +1,89 @@
+/* Métricas */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 32px;
+  margin-bottom: 30px;
+}
+
+.metric-card {
+  background-color: var(--bg-secondary);
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 20px;
+  border: 1px solid var(--bg-tertiary);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.metric-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent-purple);
+}
+
+.metric-icon-bg {
+  width: 45px;
+  height: 45px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 24px;
+}
+
+.blue-bg { 
+  background: var(--accent-blue); 
+  opacity: 0.8;
+  color: var(--accent-blue); 
+}
+
+.green-bg { 
+  background: var(--accent-green);
+  opacity: 0.8;
+  color: var(--accent-green); 
+}
+
+.yellow-bg { 
+  background: var(--accent-yellow); 
+  opacity: 0.8;
+  color: var(--accent-yellow); 
+}
+
+.purple-bg { 
+  background: var(--accent-purple); 
+  opacity: 0.8;
+  color: var(--accent-purple); 
+}
+
+.metric-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.metric-info h3 {
+  margin: 0;
+  font-size: 24px;
+  color: var(--text-primary);
+}
+
+.metric-info p {
+  margin: 5px 0 0 0;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.growth-tag {
+  font-size: 16px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: var(--bg-tertiary);
+  margin-left: 14px;
+}
+
+.green-text { color: var(--accent-green); }
+.orange-text { color: var(--accent-orange); }
