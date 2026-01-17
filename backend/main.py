@@ -1,8 +1,9 @@
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional
-from utils.ai_handler import analyze_email
+from utils.ai_handler import classify_email 
 from utils.file_handler import extract_text_from_file
+import traceback
 
 app = FastAPI(title="AutoU Email API")
 
@@ -29,8 +30,10 @@ async def handle_analyze_request(
         raise HTTPException(status_code=400, detail="O conteúdo do e-mail não pode estar vazio.")
 
     try:
-        result = analyze_email(email_content)
+        result = classify_email(email_content)
         return result
 
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Erro interno no processamento: {str(e)}")
+    except Exception as error:  
+        print(f"❌ ERRO NO MAIN.PY: {error}")
+        traceback.print_exc()
+        raise HTTPException(status_code=500, detail=f"Erro interno no processamento: {str(error)}")

@@ -310,7 +310,7 @@ function App() {
                   </div>
 
                   <button
-                    className="btn-copy"
+                    className="btn-analyze"
                     onClick={handleCopySuggestedResponse}
                   >
                     📋 Copiar para o clipboard
