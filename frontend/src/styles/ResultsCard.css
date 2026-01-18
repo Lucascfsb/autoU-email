@@ -255,6 +255,7 @@
 ======================================== */
 
 .nlp-metrics {
+  margin-top: 12px;
   padding: 16px;
   background: rgba(30, 41, 59, 0.5);
   border-radius: 12px;
@@ -287,6 +288,7 @@
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.05);
   transition: all 0.2s;
+  margin-top: 2px;
 }
 
 .nlp-stat:hover {
@@ -396,7 +398,7 @@
   padding: 16px;
   border-radius: 8px;
   color: var(--text-primary);
-  min-height: 120px;
+  min-height: 180px;
   line-height: 1.6;
   white-space: pre-wrap;
 }
