@@ -59,7 +59,6 @@
   width: 100%;
   max-width: 100%;
   animation: fadeIn 0.4s ease-out;
-
 }
 
 @keyframes fadeIn {
@@ -98,7 +97,7 @@
 }
 
 /* ========================================
-  CAIXA DE SUGESTÃO
+  CAIXA DE SUGESTÃO (EXISTENTE)
 ======================================== */
 
 .suggestion-box {
@@ -125,4 +124,220 @@
   color: var(--text-primary);
   min-height: 200px;
   margin-bottom: 16px;
+}
+
+/* ========================================
+  ✅ NOVO: BARRA DE CONFIANÇA
+======================================== */
+
+.confidence-meter {
+  padding: 14px;
+  background: rgba(124, 58, 237, 0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(124, 58, 237, 0.2);
+}
+
+.confidence-meter label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.confidence-bar-container {
+  width: 100%;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 4px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.confidence-bar-fill {
+  height: 100%;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.5);
+}
+
+.confidence-value {
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent-green);
+  margin-top: 4px;
+}
+
+/* ========================================
+  ✅ NOVO: CAIXA DE JUSTIFICATIVA
+======================================== */
+
+.justification-box {
+  padding: 14px;
+  background: rgba(168, 85, 247, 0.05);
+  border-left: 3px solid #a855f7;
+  border-radius: 8px;
+}
+
+.justification-box label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #a855f7;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.justification-box p {
+  font-size: 14px;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+/* ========================================
+  ✅ NOVO: MÉTRICAS NLP
+======================================== */
+
+.nlp-metrics {
+  padding: 14px;
+  background: rgba(30, 41, 59, 0.5);
+  border-radius: 12px;
+  border: 1px solid rgba(124, 58, 237, 0.3);
+}
+
+.nlp-metrics h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nlp-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.nlp-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.nlp-stat-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+.nlp-stat-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.nlp-stat-value.produtivo {
+  color: var(--accent-green);
+}
+
+.nlp-stat-value.improdutivo {
+  color: var(--accent-yellow);
+}
+
+.nlp-stat-value.green {
+  color: var(--accent-green);
+}
+
+.nlp-stat-value.yellow {
+  color: var(--accent-yellow);
+}
+
+/* ========================================
+  ✅ NOVO: SEÇÃO DE KEYWORDS
+======================================== */
+
+.keywords-section {
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.keywords-section label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.keywords-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.keyword-tag {
+  display: inline-block;
+  padding: 6px 12px;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.2), rgba(168, 85, 247, 0.2));
+  border: 1px solid rgba(124, 58, 237, 0.3);
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #c4b5fd;
+  transition: all 0.2s;
+  cursor: default;
+}
+
+.keyword-tag:hover {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.3), rgba(168, 85, 247, 0.3));
+  border-color: rgba(124, 58, 237, 0.5);
+  transform: translateY(-2px);
+}
+
+/* ========================================
+  ✅ RESPONSIVIDADE
+======================================== */
+
+@media (max-width: 768px) {
+  .nlp-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .keywords-list {
+    gap: 6px;
+  }
+
+  .keyword-tag {
+    font-size: 11px;
+    padding: 5px 10px;
+  }
+
+  .confidence-meter {
+    padding: 12px;
+  }
+
+  .nlp-metrics {
+    padding: 15px;
+  }
+
+  .suggestion-text {
+    min-height: 150px;
+  }
 }

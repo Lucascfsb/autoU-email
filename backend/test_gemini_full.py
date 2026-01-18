@@ -1,28 +1,48 @@
-"""
-Teste completo Gemini + NLP
-"""
-
 from utils.ai_handler import classify_email
-from dotenv import load_dotenv
-
-load_dotenv()
-
-email = """
-Prezados,
-
-Segue em anexo a Nota Fiscal 12345.
-Solicito confirmação de recebimento urgente.
-
-Atenciosamente
-"""
 
 print("🚀 TESTE COMPLETO: GEMINI + NLP")
 print("=" * 60)
 
-result = classify_email(email)
+# Email de teste
+email_produtivo = """
+Prezados,
+
+Segue em anexo a nota fiscal NF-12345 referente ao 
+contrato 2024-ABC conforme solicitado.
+
+Atenciosamente,
+João Silva
+Depto. Financeiro
+"""
+
+# Classificar
+result = classify_email(email_produtivo)
 
 print(f"\n✅ Classificação: {result['classification']}")
 print(f"✅ Confiança: {result['confidence']}")
-print(f"✅ NLP Sentimento: {result['nlp']['sentiment_detected']}")
-print(f"✅ Keywords: {result['nlp']['keywords'][:3]}")
-print(f"\n💬 Sugestão:\n{result['suggestion']}")
+print(f"✅ Cor: {result['color']}")
+
+# ✅ CORRIGIDO: Usa 'nlp_data' em vez de 'nlp'
+if 'nlp_data' in result:
+    nlp = result['nlp_data']
+    
+    print(f"\n📊 Dados NLP:")
+    print(f"   - Sentimento: {nlp['sentiment']}")
+    print(f"   - Confiança NLP: {nlp['nlp_confidence']}")
+    print(f"   - Sinais Produtivos: {nlp['productive_signals']}")
+    print(f"   - Sinais Improdutivos: {nlp['unproductive_signals']}")
+    
+    # Mostra top 5 keywords
+    print(f"\n🔑 Top 5 Keywords:")
+    for i, kw in enumerate(nlp['keywords'][:5], 1):
+        print(f"   {i}. {kw['word']} (x{kw['count']})")
+
+print(f"\n💡 Justificativa:")
+print(f"   {result['justification']}")
+
+print(f"\n✉️ Sugestão de Resposta:")
+print(f"{result['suggestion']}")
+
+print("\n" + "=" * 60)
+print("✅ Teste concluído com sucesso!")
+print("=" * 60)

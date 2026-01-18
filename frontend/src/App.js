@@ -48,40 +48,42 @@ function App() {
 
     if (hasDroppedFile) {
       const selectedFile = droppedFiles[0];
-      
+
       // ✅ VALIDAÇÃO: Tamanho do arquivo (5MB)
       const MAX_SIZE = 5 * 1024 * 1024;
       if (selectedFile.size > MAX_SIZE) {
-        alert('⚠️ Arquivo muito grande! Tamanho máximo: 5MB');
+        alert("⚠️ Arquivo muito grande! Tamanho máximo: 5MB");
         return;
       }
-      
+
       // ✅ VALIDAÇÃO: Formato do arquivo
-      const allowedFormats = ['.txt', '.pdf'];
+      const allowedFormats = [".txt", ".pdf"];
       const fileName = selectedFile.name.toLowerCase();
-      const isValidFormat = allowedFormats.some(format => fileName.endsWith(format));
-      
+      const isValidFormat = allowedFormats.some((format) =>
+        fileName.endsWith(format),
+      );
+
       if (!isValidFormat) {
-        alert('⚠️ Formato inválido! Use apenas .txt ou .pdf');
+        alert("⚠️ Formato inválido! Use apenas .txt ou .pdf");
         return;
       }
-      
+
       setEmailInputs({ ...emailInputs, uploadedFile: selectedFile });
     }
   };
 
   const handleFileSelection = (event) => {
     const selectedFile = event.target.files[0];
-    
+
     if (selectedFile) {
       // ✅ VALIDAÇÃO: Tamanho do arquivo (5MB)
       const MAX_SIZE = 5 * 1024 * 1024;
       if (selectedFile.size > MAX_SIZE) {
-        alert('⚠️ Arquivo muito grande! Tamanho máximo: 5MB');
-        event.target.value = ''; // Limpa o input
+        alert("⚠️ Arquivo muito grande! Tamanho máximo: 5MB");
+        event.target.value = ""; // Limpa o input
         return;
       }
-      
+
       setEmailInputs({ ...emailInputs, uploadedFile: selectedFile });
     }
   };
@@ -140,7 +142,7 @@ function App() {
     const suggestedResponse = analysisStatus.analysisResult?.suggestion;
     if (suggestedResponse) {
       navigator.clipboard.writeText(suggestedResponse);
-      alert('✅ Resposta copiada para a área de transferência!');
+      alert("✅ Resposta copiada para a área de transferência!");
     }
   };
 
@@ -259,31 +261,132 @@ function App() {
                   />
                 </div>
               ) : (
-                <div
-                  className={`file-drop-zone ${isFileDragging ? "dragging" : ""}`}
-                  onDragEnter={handleFileDragEvent}
-                  onDragLeave={handleFileDragEvent}
-                  onDragOver={handleFileDragEvent}
-                  onDrop={handleFileDropInZone}
-                  onClick={triggerFileSelectPopup}
-                >
-                  <input
-                    type="file"
-                    id="file-upload"
-                    ref={fileInputRef}
-                    accept=".txt,.pdf"
-                    onChange={handleFileSelection}
-                    className="file-input-hidden"
-                  />
-                  <label className="file-drop-label">
-                    {emailInputs.uploadedFile
-                      ? `✅ ${emailInputs.uploadedFile.name} (${(emailInputs.uploadedFile.size / 1024).toFixed(2)} KB)`
-                      : "📁 Clique para selecionar ou arraste o arquivo aqui"}
-                  </label>
-                  <small style={{ color: '#666', fontSize: '12px', marginTop: '8px' }}>
-                    📎 Formatos: .txt ou .pdf • Tamanho máximo: 5MB
-                  </small>
-                </div>
+                <>
+                  {/* ✅ Zona de Upload */}
+                  <div
+                    className={`file-drop-zone ${isFileDragging ? "dragging" : ""}`}
+                    onDragEnter={handleFileDragEvent}
+                    onDragLeave={handleFileDragEvent}
+                    onDragOver={handleFileDragEvent}
+                    onDrop={handleFileDropInZone}
+                    onClick={triggerFileSelectPopup}
+                  >
+                    <input
+                      type="file"
+                      id="file-upload"
+                      ref={fileInputRef}
+                      accept=".txt,.pdf"
+                      onChange={handleFileSelection}
+                      className="file-input-hidden"
+                    />
+                    <label className="file-drop-label">
+                      {emailInputs.uploadedFile
+                        ? `✅ ${emailInputs.uploadedFile.name} (${(emailInputs.uploadedFile.size / 1024).toFixed(2)} KB)`
+                        : "📁 Clique para selecionar ou arraste o arquivo aqui"}
+                    </label>
+                    <small
+                      style={{
+                        color: "#666",
+                        fontSize: "12px",
+                        marginTop: "8px",
+                      }}
+                    >
+                      📎 Formatos: .txt ou .pdf • Tamanho máximo: 5MB
+                    </small>
+                  </div>
+
+                  {/* ✅ CORRIGIDO: Remove condição do textContent */}
+                  {emailInputs.uploadedFile && (
+                    <div className="content-analysis-panel">
+                      {/* ✅ Estatísticas do Arquivo */}
+                      <div className="text-statistics">
+                        <h4>📊 Informações do Arquivo</h4>
+                        <div className="stats-grid">
+                          <div className="stat-item">
+                            <span className="stat-label">Nome</span>
+                            <span
+                              className="stat-value"
+                              style={{ fontSize: "14px" }}
+                            >
+                              {emailInputs.uploadedFile.name.length > 20
+                                ? emailInputs.uploadedFile.name.substring(
+                                    0,
+                                    20,
+                                  ) + "..."
+                                : emailInputs.uploadedFile.name}
+                            </span>
+                          </div>
+                          <div className="stat-item">
+                            <span className="stat-label">Tamanho</span>
+                            <span className="stat-value">
+                              {(emailInputs.uploadedFile.size / 1024).toFixed(
+                                1,
+                              )}{" "}
+                              KB
+                            </span>
+                          </div>
+                          <div className="stat-item">
+                            <span className="stat-label">Formato</span>
+                            <span className="stat-value">
+                              {emailInputs.uploadedFile.name
+                                .split(".")
+                                .pop()
+                                .toUpperCase()}
+                            </span>
+                          </div>
+                          <div className="stat-item">
+                            <span className="stat-label">Status</span>
+                            <span
+                              className="stat-value"
+                              style={{ color: "#22c55e", fontSize: "16px" }}
+                            >
+                              ✓ Pronto
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* ✅ Dicas de Uso */}
+                      <div className="helpful-tips">
+                        <h4>💡 O que a IA Analisará</h4>
+                        <ul>
+                          <li>
+                            <span className="tip-icon">🔍</span>
+                            <span>
+                              Palavras-chave relacionadas a trabalho e
+                              documentos
+                            </span>
+                          </li>
+                          <li>
+                            <span className="tip-icon">🎯</span>
+                            <span>
+                              Tom da mensagem (formal, urgente, casual)
+                            </span>
+                          </li>
+                          <li>
+                            <span className="tip-icon">📊</span>
+                            <span>Presença de prazos, números e anexos</span>
+                          </li>
+                          <li>
+                            <span className="tip-icon">⚡</span>
+                            <span>Contexto e intenção da comunicação</span>
+                          </li>
+                        </ul>
+                      </div>
+
+                      {/* ✅ Indicador de Pronto */}
+                      <div className="ready-indicator">
+                        <div className="ready-icon">✅</div>
+                        <div className="ready-text">
+                          <strong>Arquivo Carregado com Sucesso</strong>
+                          <span>
+                            Clique em "Analisar Email" para processar o conteúdo
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </>
               )}
 
               <div className="info-box-tip">
@@ -324,13 +427,110 @@ function App() {
                 </div>
               ) : (
                 <div className="result-content">
-                  <div 
-                    className={`result-badge ${
-                      analysisStatus.analysisResult.classification.toLowerCase()
-                    }`}
+                  <div
+                    className={`result-badge ${analysisStatus.analysisResult.classification.toLowerCase()}`}
                   >
                     {analysisStatus.analysisResult.classification}
                   </div>
+
+                  <div className="confidence-meter">
+                    <label>Confiança da Classificação</label>
+                    <div className="confidence-bar-container">
+                      <div
+                        className="confidence-bar-fill"
+                        style={{
+                          width: `${analysisStatus.analysisResult.confidence * 100}%`,
+                          backgroundColor:
+                            analysisStatus.analysisResult.confidence >= 0.8
+                              ? "#22c55e"
+                              : analysisStatus.analysisResult.confidence >= 0.6
+                                ? "#eab308"
+                                : "#ef4444",
+                        }}
+                      />
+                    </div>
+                    <span className="confidence-value">
+                      {(analysisStatus.analysisResult.confidence * 100).toFixed(
+                        0,
+                      )}
+                      %
+                    </span>
+                  </div>
+
+                  {/* ✅ NOVO: Justificativa */}
+                  {analysisStatus.analysisResult.justification && (
+                    <div className="justification-box">
+                      <label>💡 Por que foi classificado assim?</label>
+                      <p>{analysisStatus.analysisResult.justification}</p>
+                    </div>
+                  )}
+
+                  {/* ✅ NOVO: Métricas NLP */}
+                  {analysisStatus.analysisResult.nlp_data && (
+                    <div className="nlp-metrics">
+                      <h4>📊 Análise Técnica (NLP)</h4>
+
+                      <div className="nlp-stats-grid">
+                        <div className="nlp-stat">
+                          <span className="nlp-stat-label">Sentimento NLP</span>
+                          <span
+                            className={`nlp-stat-value ${analysisStatus.analysisResult.nlp_data.sentiment.toLowerCase()}`}
+                          >
+                            {analysisStatus.analysisResult.nlp_data.sentiment}
+                          </span>
+                        </div>
+
+                        <div className="nlp-stat">
+                          <span className="nlp-stat-label">Confiança NLP</span>
+                          <span className="nlp-stat-value">
+                            {(
+                              analysisStatus.analysisResult.nlp_data
+                                .nlp_confidence * 100
+                            ).toFixed(0)}
+                            %
+                          </span>
+                        </div>
+
+                        <div className="nlp-stat">
+                          <span className="nlp-stat-label">
+                            Sinais Produtivos
+                          </span>
+                          <span className="nlp-stat-value green">
+                            {
+                              analysisStatus.analysisResult.nlp_data
+                                .productive_signals
+                            }
+                          </span>
+                        </div>
+
+                        <div className="nlp-stat">
+                          <span className="nlp-stat-label">
+                            Sinais Improdutivos
+                          </span>
+                          <span className="nlp-stat-value yellow">
+                            {
+                              analysisStatus.analysisResult.nlp_data
+                                .unproductive_signals
+                            }
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* ✅ NOVO: Keywords Extraídas */}
+                      <div className="keywords-section">
+                        <label>🔑 Palavras-chave Identificadas</label>
+                        <div className="keywords-list">
+                          {analysisStatus.analysisResult.nlp_data.keywords
+                            .slice(0, 8)
+                            .map((kw, idx) => (
+                              <span key={idx} className="keyword-tag">
+                                {kw.word} ({kw.count})
+                              </span>
+                            ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
 
                   <div className="suggestion-box">
                     <label>Sugestão de Resposta:</label>
