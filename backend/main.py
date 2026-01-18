@@ -7,9 +7,15 @@ import traceback
 
 app = FastAPI(title="AutoU Email API")
 
+ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "https://auto-u-email.vercel.app", 
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=ALLOWED_ORIGINS,
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
