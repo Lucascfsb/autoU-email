@@ -100,3 +100,153 @@
   font-weight: bold;
   font-size: 14px;
 }
+
+/* ========================================
+  📱 RESPONSIVIDADE - HEADER
+======================================== */
+
+/* Tablets (768px - 1024px) */
+@media (max-width: 1024px) {
+  .main-header {
+    padding: 12px 30px;
+  }
+
+  .logo-text h2 {
+    font-size: 17px;
+  }
+
+  .logo-text p {
+    font-size: 11px;
+  }
+
+  .user-profile {
+    padding-left: 16px;
+  }
+
+  .user-name {
+    font-size: 15px;
+  }
+
+  .user-role {
+    font-size: 13px;
+  }
+}
+
+/* Tablets pequenos (480px - 768px) */
+@media (max-width: 768px) {
+  .main-header {
+    padding: 12px 20px;
+  }
+
+  .logo-box {
+    gap: 10px;
+  }
+
+  .logo-icon {
+    padding: 6px;
+    font-size: 22px;
+    border-radius: 10px;
+  }
+
+  .logo-text h2 {
+    font-size: 16px;
+  }
+
+  .logo-text p {
+    font-size: 11px;
+  }
+
+  .user-profile {
+    padding-left: 12px;
+    gap: 10px;
+  }
+
+  .user-name {
+    font-size: 14px;
+  }
+
+  .user-role {
+    font-size: 12px;
+  }
+
+  .user-avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 13px;
+  }
+}
+
+/* Mobile (até 480px) */
+@media (max-width: 480px) {
+  .main-header {
+    padding: 10px 16px;
+    gap: 8px;
+  }
+
+  .logo-box {
+    gap: 8px;
+  }
+
+  .logo-icon {
+    padding: 6px;
+    font-size: 20px;
+    border-radius: 8px;
+  }
+
+  .logo-text h2 {
+    font-size: 14px;
+  }
+
+  /* ✅ Esconder subtítulo em mobile pequeno */
+  .logo-text p {
+    display: none;
+  }
+
+  .user-profile {
+    padding-left: 8px;
+    gap: 8px;
+  }
+
+  /* ✅ Esconder informações do usuário (manter apenas avatar) */
+  .user-info {
+    display: none;
+  }
+
+  .user-avatar {
+    width: 34px;
+    height: 34px;
+    font-size: 12px;
+  }
+
+  /* ✅ Remover hover em mobile */
+  .logo-icon:hover,
+  .user-profile:hover {
+    transform: none;
+  }
+
+  .logo-text h2:hover {
+    color: var(--text-primary);
+  }
+}
+
+/* Mobile extra pequeno (até 360px) */
+@media (max-width: 360px) {
+  .main-header {
+    padding: 8px 12px;
+  }
+
+  .logo-icon {
+    padding: 5px;
+    font-size: 18px;
+  }
+
+  .logo-text h2 {
+    font-size: 13px;
+  }
+
+  .user-avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 11px;
+  }
+}
