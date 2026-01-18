@@ -2,7 +2,7 @@
   CARD DE RESULTADOS
 ======================================== */
 
-/* ✅ Card ocupa toda altura disponível */
+/* Card ocupa toda altura disponível */
 .card-panel {
   background: var(--bg-secondary);
   border-radius: 16px;

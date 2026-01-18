@@ -80,7 +80,7 @@
 @media (max-width: 768px) {
   .main-footer {
     padding: 16px 20px;
-    flex-direction: column; /* ✅ Empilha verticalmente */
+    flex-direction: column; /* Empilha verticalmente */
     gap: 16px;
     text-align: center;
   }
@@ -101,7 +101,7 @@
 
   .footer-links {
     gap: 20px;
-    flex-wrap: wrap; /* ✅ Permite quebra de linha */
+    flex-wrap: wrap; /* Permite quebra de linha */
     justify-content: center;
   }
 
@@ -141,7 +141,7 @@
     font-size: 11px;
   }
 
-  /* ✅ Remover hover em mobile */
+  /* Remover hover em mobile */
   .footer-links span:hover {
     color: var(--text-muted);
   }

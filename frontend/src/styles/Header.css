@@ -197,7 +197,7 @@
     font-size: 14px;
   }
 
-  /* ✅ Esconder subtítulo em mobile pequeno */
+  /* Esconder subtítulo em mobile pequeno */
   .logo-text p {
     display: none;
   }
@@ -207,7 +207,7 @@
     gap: 8px;
   }
 
-  /* ✅ Esconder informações do usuário (manter apenas avatar) */
+  /* Esconder informações do usuário (manter apenas avatar) */
   .user-info {
     display: none;
   }
@@ -218,7 +218,7 @@
     font-size: 12px;
   }
 
-  /* ✅ Remover hover em mobile */
+  /* Remover hover em mobile */
   .logo-icon:hover,
   .user-profile:hover {
     transform: none;

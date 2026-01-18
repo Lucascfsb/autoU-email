@@ -1,5 +1,5 @@
 const API_URL = process.env.REACT_APP_API_URL;
-const TIMEOUT_MS = 30000; // 30 segundos
+const TIMEOUT_MS = 60000; // 60 segundos
 
 export const analyzeEmail = async (text, file) => {
   const formData = new FormData();
@@ -7,7 +7,7 @@ export const analyzeEmail = async (text, file) => {
   if (text) formData.append('text', text);
   if (file) formData.append('file', file);
 
-  // ✅ Cria AbortController para timeout
+  // Cria AbortController para timeout
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), TIMEOUT_MS);
 
@@ -15,10 +15,10 @@ export const analyzeEmail = async (text, file) => {
     const response = await fetch(`${API_URL}/to_analyze_email`, {
       method: 'POST',
       body: formData,
-      signal: controller.signal, // ✅ Conecta ao timeout
+      signal: controller.signal, // Conecta ao timeout
     });
 
-    clearTimeout(timeoutId); // ✅ Cancela timeout se responder
+    clearTimeout(timeoutId); // Cancela timeout se responder
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
@@ -43,12 +43,12 @@ export const analyzeEmail = async (text, file) => {
   } catch (error) {
     clearTimeout(timeoutId);
     
-    // ✅ Trata timeout especificamente
+    // Trata timeout especificamente
     if (error.name === 'AbortError') {
       throw new Error('⏱️ Tempo esgotado. O servidor demorou muito para responder.');
     }
     
-    // ✅ Trata erro de rede
+    // Trata erro de rede
     if (error.message === 'Failed to fetch') {
       throw new Error('🌐 Sem conexão com o servidor. Verifique sua internet.');
     }

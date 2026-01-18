@@ -29,10 +29,10 @@ async def handle_analyze_request(
 
     # PASSO 1: Processa arquivo (se enviado)
     if file:
-        # ✅ NOVA VALIDAÇÃO: Tamanho do arquivo
+        # NOVA VALIDAÇÃO: Tamanho do arquivo
         await validate_file_size(file)
         
-        # ✅ NOVA VALIDAÇÃO: Formato do arquivo
+        # NOVA VALIDAÇÃO: Formato do arquivo
         if not file.filename.lower().endswith(('.pdf', '.txt')):
             raise HTTPException(
                 status_code=400,

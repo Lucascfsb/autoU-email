@@ -22,7 +22,7 @@ print(f"\n✅ Classificação: {result['classification']}")
 print(f"✅ Confiança: {result['confidence']}")
 print(f"✅ Cor: {result['color']}")
 
-# ✅ CORRIGIDO: Usa 'nlp_data' em vez de 'nlp'
+# Usa 'nlp_data' em vez de 'nlp'
 if 'nlp_data' in result:
     nlp = result['nlp_data']
     

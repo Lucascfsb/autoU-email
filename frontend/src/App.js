@@ -49,14 +49,14 @@ function App() {
     if (hasDroppedFile) {
       const selectedFile = droppedFiles[0];
 
-      // ✅ VALIDAÇÃO: Tamanho do arquivo (5MB)
+      // VALIDAÇÃO: Tamanho do arquivo (5MB)
       const MAX_SIZE = 5 * 1024 * 1024;
       if (selectedFile.size > MAX_SIZE) {
         alert("⚠️ Arquivo muito grande! Tamanho máximo: 5MB");
         return;
       }
 
-      // ✅ VALIDAÇÃO: Formato do arquivo
+      // VALIDAÇÃO: Formato do arquivo
       const allowedFormats = [".txt", ".pdf"];
       const fileName = selectedFile.name.toLowerCase();
       const isValidFormat = allowedFormats.some((format) =>
@@ -76,7 +76,7 @@ function App() {
     const selectedFile = event.target.files[0];
 
     if (selectedFile) {
-      // ✅ VALIDAÇÃO: Tamanho do arquivo (5MB)
+      // VALIDAÇÃO: Tamanho do arquivo (5MB)
       const MAX_SIZE = 5 * 1024 * 1024;
       if (selectedFile.size > MAX_SIZE) {
         alert("⚠️ Arquivo muito grande! Tamanho máximo: 5MB");
@@ -128,7 +128,7 @@ function App() {
         analysisResult: analysisData,
       });
     } catch (error) {
-      // ✅ Mostra a mensagem de erro específica da API
+      // Mostra a mensagem de erro específica da API
       alert(error.message);
 
       setAnalysisStatus({
@@ -262,7 +262,6 @@ function App() {
                 </div>
               ) : (
                 <>
-                  {/* ✅ Zona de Upload */}
                   <div
                     className={`file-drop-zone ${isFileDragging ? "dragging" : ""}`}
                     onDragEnter={handleFileDragEvent}
@@ -295,10 +294,8 @@ function App() {
                     </small>
                   </div>
 
-                  {/* ✅ CORRIGIDO: Remove condição do textContent */}
                   {emailInputs.uploadedFile && (
                     <div className="content-analysis-panel">
-                      {/* ✅ Estatísticas do Arquivo */}
                       <div className="text-statistics">
                         <h4>📊 Informações do Arquivo</h4>
                         <div className="stats-grid">
@@ -346,7 +343,6 @@ function App() {
                         </div>
                       </div>
 
-                      {/* ✅ Dicas de Uso */}
                       <div className="helpful-tips">
                         <h4>💡 O que a IA Analisará</h4>
                         <ul>
@@ -374,7 +370,6 @@ function App() {
                         </ul>
                       </div>
 
-                      {/* ✅ Indicador de Pronto */}
                       <div className="ready-indicator">
                         <div className="ready-icon">✅</div>
                         <div className="ready-text">
@@ -457,7 +452,6 @@ function App() {
                     </span>
                   </div>
 
-                  {/* ✅ NOVO: Justificativa */}
                   {analysisStatus.analysisResult.justification && (
                     <div className="justification-box">
                       <label>💡 Por que foi classificado assim?</label>
@@ -465,7 +459,6 @@ function App() {
                     </div>
                   )}
 
-                  {/* ✅ NOVO: Métricas NLP */}
                   {analysisStatus.analysisResult.nlp_data && (
                     <div className="nlp-metrics">
                       <h4>📊 Análise Técnica (NLP)</h4>
@@ -516,7 +509,6 @@ function App() {
                         </div>
                       </div>
 
-                      {/* ✅ NOVO: Keywords Extraídas */}
                       <div className="keywords-section">
                         <label>🔑 Palavras-chave Identificadas</label>
                         <div className="keywords-list">

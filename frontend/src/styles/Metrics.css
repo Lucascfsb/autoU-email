@@ -4,7 +4,7 @@
 
 .metrics-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* ✅ Desktop: 4 colunas */
+  grid-template-columns: repeat(4, 1fr); /* Desktop: 4 colunas */
   gap: 24px;
   margin-bottom: 32px;
 }
@@ -122,7 +122,7 @@
 /* Tablets grandes (1024px - 1200px) */
 @media (max-width: 1200px) {
   .metrics-grid {
-    grid-template-columns: repeat(2, 1fr); /* ✅ 2 colunas */
+    grid-template-columns: repeat(2, 1fr); /* 2 colunas */
     gap: 20px;
   }
 
@@ -144,7 +144,7 @@
 /* Tablets (768px - 1024px) */
 @media (max-width: 1024px) {
   .metrics-grid {
-    grid-template-columns: repeat(2, 1fr); /* ✅ 2 colunas */
+    grid-template-columns: repeat(2, 1fr); /* 2 colunas */
     gap: 16px;
   }
 
@@ -176,7 +176,7 @@
 /* Mobile (até 768px) */
 @media (max-width: 768px) {
   .metrics-grid {
-    grid-template-columns: 1fr; /* ✅ 1 coluna (empilhado) */
+    grid-template-columns: 1fr; /* 1 coluna (empilhado) */
     gap: 16px;
     margin-bottom: 24px;
   }
@@ -211,7 +211,7 @@
 /* Mobile pequeno (até 480px) */
 @media (max-width: 480px) {
   .metrics-grid {
-    grid-template-columns: 1fr; /* ✅ 1 coluna */
+    grid-template-columns: 1fr; /* 1 coluna */
     gap: 12px;
     margin-bottom: 20px;
   }
@@ -242,7 +242,7 @@
     padding: 3px 8px;
   }
 
-  /* ✅ Remover hover em mobile */
+  /* Remover hover em mobile */
   .metric-card:hover {
     transform: none;
     box-shadow: none;
