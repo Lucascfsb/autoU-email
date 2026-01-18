@@ -48,13 +48,40 @@ function App() {
 
     if (hasDroppedFile) {
       const selectedFile = droppedFiles[0];
+      
+      // ✅ VALIDAÇÃO: Tamanho do arquivo (5MB)
+      const MAX_SIZE = 5 * 1024 * 1024;
+      if (selectedFile.size > MAX_SIZE) {
+        alert('⚠️ Arquivo muito grande! Tamanho máximo: 5MB');
+        return;
+      }
+      
+      // ✅ VALIDAÇÃO: Formato do arquivo
+      const allowedFormats = ['.txt', '.pdf'];
+      const fileName = selectedFile.name.toLowerCase();
+      const isValidFormat = allowedFormats.some(format => fileName.endsWith(format));
+      
+      if (!isValidFormat) {
+        alert('⚠️ Formato inválido! Use apenas .txt ou .pdf');
+        return;
+      }
+      
       setEmailInputs({ ...emailInputs, uploadedFile: selectedFile });
     }
   };
 
   const handleFileSelection = (event) => {
     const selectedFile = event.target.files[0];
+    
     if (selectedFile) {
+      // ✅ VALIDAÇÃO: Tamanho do arquivo (5MB)
+      const MAX_SIZE = 5 * 1024 * 1024;
+      if (selectedFile.size > MAX_SIZE) {
+        alert('⚠️ Arquivo muito grande! Tamanho máximo: 5MB');
+        event.target.value = ''; // Limpa o input
+        return;
+      }
+      
       setEmailInputs({ ...emailInputs, uploadedFile: selectedFile });
     }
   };
@@ -99,9 +126,8 @@ function App() {
         analysisResult: analysisData,
       });
     } catch (error) {
-      const errorMessage =
-        "Falha na comunicação com o servidor. Verifique se o backend está rodando.";
-      alert(errorMessage);
+      // ✅ Mostra a mensagem de erro específica da API
+      alert(error.message);
 
       setAnalysisStatus({
         isLoading: false,
@@ -114,6 +140,7 @@ function App() {
     const suggestedResponse = analysisStatus.analysisResult?.suggestion;
     if (suggestedResponse) {
       navigator.clipboard.writeText(suggestedResponse);
+      alert('✅ Resposta copiada para a área de transferência!');
     }
   };
 
@@ -244,15 +271,18 @@ function App() {
                     type="file"
                     id="file-upload"
                     ref={fileInputRef}
-                    accept=".eml,.msg,.txt,.pdf"
+                    accept=".txt,.pdf"
                     onChange={handleFileSelection}
                     className="file-input-hidden"
                   />
                   <label className="file-drop-label">
                     {emailInputs.uploadedFile
-                      ? `✅ ${emailInputs.uploadedFile.name}`
+                      ? `✅ ${emailInputs.uploadedFile.name} (${(emailInputs.uploadedFile.size / 1024).toFixed(2)} KB)`
                       : "📁 Clique para selecionar ou arraste o arquivo aqui"}
                   </label>
+                  <small style={{ color: '#666', fontSize: '12px', marginTop: '8px' }}>
+                    📎 Formatos: .txt ou .pdf • Tamanho máximo: 5MB
+                  </small>
                 </div>
               )}
 

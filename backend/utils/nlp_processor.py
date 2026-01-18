@@ -50,7 +50,13 @@ PRODUCTIVE_KEYWORDS_PT: Set[str] = {
     'análise', 'analisar', 'pendente', 'pendentes',
     'favor', 'necessário', 'necessária', 'anexo', 'anexos',
     'informação', 'informações', 'suporte', 'ajuda', 'auxílio',
-    'confirmar', 'confirmação', 'nota', 'fiscal', 'pagamento'
+    'confirmar', 'confirmação', 'nota', 'fiscal', 'pagamento','boleto', 'fatura', 'nota fiscal', 'nf', 'danfe',
+    'cobrança', 'débito', 'crédito', 'transferência',
+    'pix', 'ted', 'doc', 'saldo', 'extrato',
+    'reconciliação', 'conciliação', 'auditoria',
+    'compliance', 'regulatório', 'bacen', 'cvm',
+    'contábil', 'fiscal', 'tributo', 'imposto',
+    'ativo', 'passivo', 'balanço', 'dre'
 }
 
 PRODUCTIVE_KEYWORDS_EN: Set[str] = {
@@ -60,7 +66,10 @@ PRODUCTIVE_KEYWORDS_EN: Set[str] = {
     'document', 'documents', 'contract', 'contracts',
     'analysis', 'analyze', 'pending', 'please', 'required',
     'attachment', 'attachments', 'information', 'support', 'help',
-    'confirm', 'confirmation', 'invoice', 'payment', 'assistance'
+    'confirm', 'confirmation', 'invoice', 'payment', 'assistance', 'invoice', 'bill', 'receipt', 'statement',
+    'balance', 'debit', 'credit', 'transfer',
+    'reconciliation', 'audit', 'compliance',
+    'regulatory', 'accounting', 'fiscal', 'tax'
 }
 
 PRODUCTIVE_KEYWORDS: Set[str] = PRODUCTIVE_KEYWORDS_PT | PRODUCTIVE_KEYWORDS_EN

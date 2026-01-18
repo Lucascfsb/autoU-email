@@ -11,11 +11,11 @@ load_dotenv()
 # =============================================================================
 # CONFIGURAÇÕES
 # =============================================================================
-GEMINI_MODEL = 'gemma-3-4b-it'
-TEMPERATURE = 0.3
-TOP_P = 0.8
-TOP_K = 40
-MAX_TOKENS = 1024
+GEMINI_MODEL = 'gemma-3-4b-it' #Qual modelo usar do Gemini
+TEMPERATURE = 0.3 #Criatividade da resposta
+TOP_P = 0.8 #Diversidade da resposta
+TOP_K = 40  #Opções consideradas
+MAX_TOKENS = 1024 #Tamanho máximo da resposta
 
 nlp_processor = NLPProcessor()
 
@@ -72,13 +72,30 @@ def parse_gemini_response(response_text: str) -> dict:
         print("✅ JSON extraído do texto!")
         return parsed
         
-    except json.JSONDecodeError:
-        pass
+    except json.JSONDecodeError as e:
+        print(f"❌ Falha ao parsear JSON: {e}")
+        raise ValueError(f"Resposta do Gemini não contém JSON válido: {response_text[:200]}")
     
-    # Estratégia 3: Fallback com análise textual
-    print("⚠️ Não conseguiu parsear JSON, usando fallback...")
-    classification = extract_classification_from_text(response_text)
-    return create_fallback_response(response_text, classification)
+    
+
+def validate_gemini_result(result: dict) -> dict:
+    """Valida e normaliza a resposta do Gemini"""
+    required_fields = ['classification', 'confidence', 'suggestion', 'color']
+    
+    for field in required_fields:
+        if field not in result:
+            raise ValueError(f"Campo obrigatório ausente: {field}")
+    
+    # Normalizar classificação
+    if result['classification'].upper() not in ['PRODUTIVO', 'IMPRODUTIVO']:
+        raise ValueError(f"Classificação inválida: {result['classification']}")
+    
+    # Validar confiança
+    if not isinstance(result['confidence'], (int, float)) or not 0 <= result['confidence'] <= 1:
+        print(f"⚠️ Confiança inválida ({result['confidence']}), usando 0.5")
+        result['confidence'] = 0.5
+    
+    return result
 
 
 # =============================================================================
@@ -244,7 +261,7 @@ def classify_email(email_text: str) -> dict:
         
         print("🔍 Processando resposta...")
         result = parse_gemini_response(response_text)
-        
+        result = validate_gemini_result(result) 
         result = enrich_result_with_nlp(result, nlp_data)
         
         print(f"✅ Classificação: {result['classification']}")
@@ -253,11 +270,11 @@ def classify_email(email_text: str) -> dict:
         
         return result
         
-    except Exception as e:
-        print(f"❌ Erro ao processar com Gemini: {e}")
-        print(f"❌ Tipo do erro: {type(e)}")
+    except Exception as error:
+        print(f"❌ Erro ao processar com Gemini: {error}")
+        print(f"❌ Tipo do erro: {type(error)}")
         
         import traceback
         traceback.print_exc()
         
-        return create_nlp_fallback_result(nlp_data, e)
+        return create_nlp_fallback_result(nlp_data, error)
