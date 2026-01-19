@@ -303,6 +303,7 @@ Baixa:  < 60%  → 🔴 Vermelho
 | Tecnologia | Versão | Descrição |
 |-----------|--------|-----------|
 | **React** | 18.3.1 | Biblioteca UI para construção de interfaces |
+| **TypeScript** | 5.0+ | Superset JavaScript com tipagem estática |
 | **Fetch API** | ES6 Nativo | Cliente HTTP para requisições REST |
 | **CSS3** | - | Estilização customizada com variáveis CSS |
 | **FormData API** | Nativo | Upload de arquivos e envio de dados |
@@ -339,25 +340,55 @@ autoU-email/
 │       ├── file_handler.py    # Processamento de arquivos
 │       └── nlp_processor.py   # Análise NLP customizada (Python puro)
 │
-├── frontend/                  # Aplicação React
+├── frontend/                  # Aplicação React + TypeScript
 │   ├── public/
 │   │   └── index.html
 │   ├── src/
-│   │   ├── App.js            # Componente principal
+│   │   ├── App.tsx           # Container principal
 │   │   ├── App.css           # Estilos globais
-│   │   ├── index.js          # Entry point
-│   │   ├── services/
-│   │   │   └── api.js        # Cliente Axios
-│   │   └── styles/           # CSS modular
-│   │       ├── ClassifierCard.css
-│   │       ├── ResultsCard.css
-│   │       ├── Header.css
-│   │       ├── Footer.css
-│   │       ├── Metrics.css
-│   │       ├── Table.css
-│   │       ├── Layout.css
-│   │       └── global.css
+│   │   ├── index.tsx         # Entry point
+│   │   ├── components/       # Componentes reutilizáveis
+│   │   │   ├── classifier/   # Componentes de classificação
+│   │   │   │   ├── ClassifierCard.tsx
+│   │   │   │   ├── FileInfo.tsx
+│   │   │   │   ├── FileUpload.tsx
+│   │   │   │   ├── TabSelector.tsx
+│   │   │   │   └── TextInput.tsx
+│   │   │   ├── layout/       # Layout da aplicação
+│   │   │   │   ├── Header.tsx
+│   │   │   │   ├── Footer.tsx
+│   │   │   │   └── WelcomeBanner.tsx
+│   │   │   ├── metrics/      # Cards de métricas
+│   │   │   │   ├── MetricCard.tsx
+│   │   │   │   └── MetricsGrid.tsx
+│   │   │   ├── results/      # Resultados da análise
+│   │   │   │   ├── ClassificationResult.tsx
+│   │   │   │   ├── ConfidenceMeter.tsx
+│   │   │   │   ├── EmptyState.tsx
+│   │   │   │   ├── NLPMetrics.tsx
+│   │   │   │   ├── ResultsCard.tsx
+│   │   │   │   └── SuggestionBox.tsx
+│   │   │   └── table/        # Tabela de análises
+│   │   │       └── RecentAnalysesTable.tsx
+│   │   ├── hooks/            # Custom React Hooks
+│   │   │   └── useEmailAnalyzer.ts  # Lógica de estado
+│   │   ├── screens/          # Telas da aplicação
+│   │   │   └── EmailClassifierScreen.tsx
+│   │   ├── services/         # Serviços e APIs
+│   │   │   └── api.ts        # Cliente HTTP (Fetch API)
+│   │   ├── styles/           # CSS modular
+│   │   │   ├── ClassifierCard.css
+│   │   │   ├── ResultsCard.css
+│   │   │   ├── Header.css
+│   │   │   ├── Footer.css
+│   │   │   ├── Metrics.css
+│   │   │   ├── Table.css
+│   │   │   ├── Layout.css
+│   │   │   └── global.css
+│   │   └── types/            # Definições TypeScript
+│   │       └── index.ts
 │   ├── package.json
+│   ├── tsconfig.json
 │   └── .env                  # Variáveis de ambiente (criar)
 │
 ├── data_example/              # Exemplos de emails
@@ -1085,6 +1116,7 @@ Low:    < 60%  → 🔴 Red
 | Technology | Version | Description |
 |-----------|---------|-------------|
 | **React** | 18.3.1 | UI library for interface building |
+| **TypeScript** | 5.0+ | JavaScript superset with static typing |
 | **Fetch API** | ES6 Native | HTTP client for REST requests |
 | **CSS3** | - | Custom styling with CSS variables |
 | **FormData API** | Native | File upload and data sending |
@@ -1121,25 +1153,55 @@ autoU-email/
 │       ├── file_handler.py    # File processing
 │       └── nlp_processor.py   # Customized NLP analysis (pure Python)
 │
-├── frontend/                  # React application
+├── frontend/                  # React + TypeScript application
 │   ├── public/
 │   │   └── index.html
 │   ├── src/
-│   │   ├── App.js            # Main component
+│   │   ├── App.tsx           # Main container
 │   │   ├── App.css           # Global styles
-│   │   ├── index.js          # Entry point
-│   │   ├── services/
-│   │   │   └── api.js        # Axios client
-│   │   └── styles/           # Modular CSS
-│   │       ├── ClassifierCard.css
-│   │       ├── ResultsCard.css
-│   │       ├── Header.css
-│   │       ├── Footer.css
-│   │       ├── Metrics.css
-│   │       ├── Table.css
-│   │       ├── Layout.css
-│   │       └── global.css
+│   │   ├── index.tsx         # Entry point
+│   │   ├── components/       # Reusable components
+│   │   │   ├── classifier/   # Classification components
+│   │   │   │   ├── ClassifierCard.tsx
+│   │   │   │   ├── FileInfo.tsx
+│   │   │   │   ├── FileUpload.tsx
+│   │   │   │   ├── TabSelector.tsx
+│   │   │   │   └── TextInput.tsx
+│   │   │   ├── layout/       # Application layout
+│   │   │   │   ├── Header.tsx
+│   │   │   │   ├── Footer.tsx
+│   │   │   │   └── WelcomeBanner.tsx
+│   │   │   ├── metrics/      # Metrics cards
+│   │   │   │   ├── MetricCard.tsx
+│   │   │   │   └── MetricsGrid.tsx
+│   │   │   ├── results/      # Analysis results
+│   │   │   │   ├── ClassificationResult.tsx
+│   │   │   │   ├── ConfidenceMeter.tsx
+│   │   │   │   ├── EmptyState.tsx
+│   │   │   │   ├── NLPMetrics.tsx
+│   │   │   │   ├── ResultsCard.tsx
+│   │   │   │   └── SuggestionBox.tsx
+│   │   │   └── table/        # Analysis table
+│   │   │       └── RecentAnalysesTable.tsx
+│   │   ├── hooks/            # Custom React Hooks
+│   │   │   └── useEmailAnalyzer.ts  # State logic
+│   │   ├── screens/          # Application screens
+│   │   │   └── EmailClassifierScreen.tsx
+│   │   ├── services/         # Services and APIs
+│   │   │   └── api.ts        # HTTP client (Fetch API)
+│   │   ├── styles/           # Modular CSS
+│   │   │   ├── ClassifierCard.css
+│   │   │   ├── ResultsCard.css
+│   │   │   ├── Header.css
+│   │   │   ├── Footer.css
+│   │   │   ├── Metrics.css
+│   │   │   ├── Table.css
+│   │   │   ├── Layout.css
+│   │   │   └── global.css
+│   │   └── types/            # TypeScript definitions
+│   │       └── index.ts
 │   ├── package.json
+│   ├── tsconfig.json
 │   └── .env                  # Environment variables (create)
 │
 ├── data_example/              # Email examples
