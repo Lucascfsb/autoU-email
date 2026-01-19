@@ -1,7 +1,12 @@
+import { AnalysisResult } from '../types';
+
 const API_URL = process.env.REACT_APP_API_URL;
 const TIMEOUT_MS = 60000; // 60 segundos
 
-export const analyzeEmail = async (text, file) => {
+export const analyzeEmail = async (
+  text: string,
+  file: File | null
+): Promise<AnalysisResult> => {
   const formData = new FormData();
   
   if (text) formData.append('text', text);
@@ -21,7 +26,7 @@ export const analyzeEmail = async (text, file) => {
     clearTimeout(timeoutId); // Cancela timeout se responder
 
     if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
+      const errorData = await response.json().catch(() => ({})) as { detail?: string };
       
       if (response.status === 413) {
         throw new Error('⚠️ Arquivo muito grande! Tamanho máximo: 5MB');
@@ -38,18 +43,19 @@ export const analyzeEmail = async (text, file) => {
       throw new Error(errorData.detail || 'Falha na comunicação com o servidor');
     }
 
-    return response.json();
+    const data: AnalysisResult = await response.json();
+    return data;
     
   } catch (error) {
     clearTimeout(timeoutId);
     
     // Trata timeout especificamente
-    if (error.name === 'AbortError') {
+    if (error instanceof Error && error.name === 'AbortError') {
       throw new Error('⏱️ Tempo esgotado. O servidor demorou muito para responder.');
     }
     
     // Trata erro de rede
-    if (error.message === 'Failed to fetch') {
+    if (error instanceof Error && error.message === 'Failed to fetch') {
       throw new Error('🌐 Sem conexão com o servidor. Verifique sua internet.');
     }
     
