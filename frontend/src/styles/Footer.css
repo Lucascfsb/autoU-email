@@ -1,7 +1,3 @@
-/* ========================================
-  FOOTER
-======================================== */
-
 .main-footer {
   margin-top: 40px;
   padding: 20px 40px;
@@ -13,7 +9,6 @@
   box-shadow: 0 -3px 15px -5px var(--shadow-purple);
 }
 
-/* Lado esquerdo */
 .footer-left {
   display: flex;
   align-items: center;
@@ -36,7 +31,6 @@
   color: var(--text-muted);
 }
 
-/* Links do footer */
 .footer-links {
   display: flex;
   gap: 30px;
@@ -54,11 +48,6 @@
   color: var(--accent-purple);
 }
 
-/* ========================================
-  📱 RESPONSIVIDADE - FOOTER
-======================================== */
-
-/* Tablets (768px - 1024px) */
 @media (max-width: 1024px) {
   .main-footer {
     padding: 18px 30px;
@@ -77,11 +66,10 @@
   }
 }
 
-/* Tablets pequenos (480px - 768px) */
 @media (max-width: 768px) {
   .main-footer {
     padding: 16px 20px;
-    flex-direction: column; /* Empilha verticalmente */
+    flex-direction: column; 
     gap: 16px;
     text-align: center;
   }
@@ -102,7 +90,7 @@
 
   .footer-links {
     gap: 20px;
-    flex-wrap: wrap; /* Permite quebra de linha */
+    flex-wrap: wrap; 
     justify-content: center;
   }
 
@@ -111,7 +99,6 @@
   }
 }
 
-/* Mobile (até 480px) */
 @media (max-width: 480px) {
   .main-footer {
     padding: 16px;
@@ -142,13 +129,11 @@
     font-size: 11px;
   }
 
-  /* Remover hover em mobile */
   .footer-links a:hover {
     color: var(--text-muted);
   }
 }
 
-/* Mobile extra pequeno (até 360px) */
 @media (max-width: 360px) {
   .main-footer {
     padding: 12px;

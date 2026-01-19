@@ -1,7 +1,3 @@
-/* ========================================
-  HEADER
-======================================== */
-
 .main-header {
   display: flex;
   justify-content: space-between;
@@ -10,10 +6,6 @@
   padding: 10px 40px;
   box-shadow: 0 3px 15px -5px var(--shadow-purple);
 }
-
-/* ========================================
-  LOGO
-======================================== */
 
 .logo-box {
   display: flex;
@@ -51,10 +43,6 @@
   font-size: 12px;
   color: var(--text-muted);
 }
-
-/* ========================================
-  PERFIL DO USUÁRIO
-======================================== */
 
 .user-profile {
   display: flex;
@@ -101,11 +89,7 @@
   font-size: 14px;
 }
 
-/* ========================================
-  📱 RESPONSIVIDADE - HEADER
-======================================== */
 
-/* Tablets (768px - 1024px) */
 @media (max-width: 1024px) {
   .main-header {
     padding: 12px 30px;
@@ -132,7 +116,6 @@
   }
 }
 
-/* Tablets pequenos (480px - 768px) */
 @media (max-width: 768px) {
   .main-header {
     padding: 12px 20px;
@@ -176,7 +159,6 @@
   }
 }
 
-/* Mobile (até 480px) */
 @media (max-width: 480px) {
   .main-header {
     padding: 10px 16px;
@@ -197,7 +179,6 @@
     font-size: 14px;
   }
 
-  /* Esconder subtítulo em mobile pequeno */
   .logo-text p {
     display: none;
   }
@@ -207,7 +188,6 @@
     gap: 8px;
   }
 
-  /* Esconder informações do usuário (manter apenas avatar) */
   .user-info {
     display: none;
   }
@@ -218,7 +198,6 @@
     font-size: 12px;
   }
 
-  /* Remover hover em mobile */
   .logo-icon:hover,
   .user-profile:hover {
     transform: none;
@@ -229,7 +208,6 @@
   }
 }
 
-/* Mobile extra pequeno (até 360px) */
 @media (max-width: 360px) {
   .main-header {
     padding: 8px 12px;

@@ -1,12 +1,7 @@
-/* ========================================
-  ANÁLISES RECENTES
-======================================== */
-
 .recent-analyses {
   margin-top: 40px;
 }
 
-/* Header da seção */
 .section-header {
   display: flex;
   justify-content: space-between;
@@ -33,10 +28,6 @@
 .btn-text:hover {
   opacity: 0.8;
 }
-
-/* ========================================
-  TABELA
-======================================== */
 
 .custom-table {
   width: 100%;
@@ -71,10 +62,6 @@
 .custom-table tbody tr:hover {
   background: rgba(124, 58, 237, 0.05);
 }
-
-/* ========================================
-  BADGES DA TABELA
-======================================== */
 
 .badge {
   display: inline-block;

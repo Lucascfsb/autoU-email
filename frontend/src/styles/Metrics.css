@@ -1,24 +1,20 @@
-/* ========================================
-  MÉTRICAS DO DASHBOARD
-======================================== */
-
 .metrics-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Desktop: 4 colunas */
+  grid-template-columns: repeat(4, 1fr); 
   gap: 24px;
   margin-bottom: 32px;
 }
 
 .metric-card {
   background: var(--bg-secondary);
-  padding: 24px;
+  padding: 20px;
   border-radius: 16px;
   display: flex;
   align-items: center;
-  gap: 20px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s;
   border: 1px solid rgba(255, 255, 255, 0.05);
   cursor: pointer;
+  width: 400px;
 }
 
 .metric-card:hover {
@@ -27,7 +23,6 @@
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-/* Ícone de fundo colorido */
 .metric-icon-bg {
   width: 64px;
   height: 64px;
@@ -36,6 +31,7 @@
   align-items: center;
   justify-content: center;
   font-size: 32px;
+  margin-left: 32px;
   flex-shrink: 0;
   transition: transform 0.3s;
 }
@@ -44,12 +40,12 @@
   transform: scale(1.1);
 }
 
-/* Informações da métrica */
 .metric-info {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
+  margin-left: 100px;
 }
 
 .metric-header {
@@ -64,6 +60,7 @@
   color: var(--text-primary);
   margin: 0;
   line-height: 1;
+  flex-shrink: 0;
 }
 
 .metric-info p {
@@ -71,9 +68,9 @@
   color: var(--text-muted);
   margin: 0;
   font-weight: 500;
+  margin-top: auto;
 }
 
-/* Tag de crescimento */
 .growth-tag {
   padding: 4px 10px;
   border-radius: 12px;
@@ -94,14 +91,9 @@
   border: 1px solid rgba(234, 179, 8, 0.3);
 }
 
-/* ========================================
-  📱 RESPONSIVIDADE MOBILE
-======================================== */
-
-/* Tablets grandes (1024px - 1200px) */
 @media (max-width: 1200px) {
   .metrics-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 colunas */
+    grid-template-columns: repeat(2, 1fr); 
     gap: 20px;
   }
 
@@ -120,10 +112,9 @@
   }
 }
 
-/* Tablets (768px - 1024px) */
 @media (max-width: 1024px) {
   .metrics-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 colunas */
+    grid-template-columns: repeat(2, 1fr); 
     gap: 16px;
   }
 
@@ -152,10 +143,9 @@
   }
 }
 
-/* Mobile (até 768px) */
 @media (max-width: 768px) {
   .metrics-grid {
-    grid-template-columns: 1fr; /* 1 coluna (empilhado) */
+    grid-template-columns: 1fr; 
     gap: 16px;
     margin-bottom: 24px;
   }
@@ -187,10 +177,9 @@
   }
 }
 
-/* Mobile pequeno (até 480px) */
 @media (max-width: 480px) {
   .metrics-grid {
-    grid-template-columns: 1fr; /* 1 coluna */
+    grid-template-columns: 1fr; 
     gap: 12px;
     margin-bottom: 20px;
   }
@@ -221,14 +210,12 @@
     padding: 3px 8px;
   }
 
-  /* Remover hover em mobile */
   .metric-card:hover {
     transform: none;
     box-shadow: none;
   }
 }
 
-/* Mobile extra pequeno (até 360px) */
 @media (max-width: 360px) {
   .metric-card {
     padding: 14px;
