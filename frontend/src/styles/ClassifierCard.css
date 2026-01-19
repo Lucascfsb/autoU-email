@@ -7,7 +7,6 @@
   background: var(--bg-secondary);
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 6px 6px 24px -5px var(--shadow-purple);
   border: 1px solid var(--bg-tertiary);
 }
 
@@ -75,7 +74,6 @@
 .tab-selector button.active {
   background: var(--accent-purple);
   color: var(--text-primary);
-  box-shadow: 0 4px 20px var(--shadow-purple);
 }
 
 /* ========================================
@@ -200,7 +198,6 @@ textarea:focus {
 .btn-analyze:hover:not(:disabled) {
   filter: brightness(1.1);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px var(--shadow-purple);
 }
 
 .btn-analyze:active:not(:disabled) {

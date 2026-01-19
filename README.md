@@ -337,7 +337,7 @@ autoU-email/
 │   └── utils/                 # Módulos utilitários
 │       ├── ai_handler.py      # Integração Google Gemini
 │       ├── file_handler.py    # Processamento de arquivos
-│       └── nlp_processor.py   #  Análise NLP customizada (Python puro)
+│       └── nlp_processor.py   # Análise NLP customizada (Python puro)
 │
 ├── frontend/                  # Aplicação React
 │   ├── public/
@@ -531,7 +531,7 @@ A solução está **100% funcional** e hospedada na nuvem:
 │  • FastAPI + Uvicorn                    │
 │  • Python 3.11                          │
 │  • Google Gemini API                    │
-│  •  NLP                                 │
+│  • NLP customizada (Python puro)        │
 └─────────────────────────────────────────┘
                  ▼ API Call
 ┌─────────────────────────────────────────┐
@@ -1095,7 +1095,7 @@ Low:    < 60%  → 🔴 Red
 | **Python** | 3.8+ | Main language |
 | **FastAPI** | 0.100+ | Asynchronous web framework |
 | **Uvicorn** | 0.23+ | High-performance ASGI server |
-| **NLP Customizado** | - | Text processing in pure Python. |
+| **Customized NLP** | - | Text processing in pure Python. |
 | **PyPDF2** | 3.0+ | PDF text extraction |
 | **Google Gemini** | 1.5 | Generative AI for classification |
 | **python-dotenv** | 1.0+ | Environment variable management |
@@ -1313,7 +1313,7 @@ The solution is **100% functional** and hosted in the cloud:
 │  • FastAPI + Uvicorn                    │
 │  • Python 3.11                          │
 │  • Google Gemini API                    │
-│  • NLP                                  │
+│  • Customized NLP (Pure Python)         │
 └─────────────────────────────────────────┘
                  ▼ API Call
 ┌─────────────────────────────────────────┐

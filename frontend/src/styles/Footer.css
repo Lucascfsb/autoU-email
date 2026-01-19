@@ -42,9 +42,10 @@
   gap: 30px;
 }
 
-.footer-links span {
+.footer-links a {
   color: var(--text-muted);
   cursor: pointer;
+  text-decoration: none;
   transition: color 0.2s ease;
   font-size: 14px;
 }
@@ -67,7 +68,7 @@
     gap: 24px;
   }
 
-  .footer-links span {
+  .footer-links a {
     font-size: 13px;
   }
 
@@ -105,7 +106,7 @@
     justify-content: center;
   }
 
-  .footer-links span {
+  .footer-links a {
     font-size: 12px;
   }
 }
@@ -137,12 +138,12 @@
     gap: 16px;
   }
 
-  .footer-links span {
+  .footer-links a {
     font-size: 11px;
   }
 
   /* Remover hover em mobile */
-  .footer-links span:hover {
+  .footer-links a:hover {
     color: var(--text-muted);
   }
 }
