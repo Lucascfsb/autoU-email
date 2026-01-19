@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { analyzeEmail } from "../services/api";
-import { EmailInputs, AnalysisStatus, TabType, AnalysisResult } from "../types";
+import { EmailInputs, AnalysisStatus, TabType } from "../types";
 
 export const useEmailAnalyzer = () => {
   const [emailInputs, setEmailInputs] = useState<EmailInputs>({
