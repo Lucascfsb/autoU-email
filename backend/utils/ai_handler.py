@@ -8,9 +8,6 @@ from .nlp_processor import NLPProcessor
 
 load_dotenv()
 
-# =============================================================================
-# CONFIGURAÇÕES
-# =============================================================================
 GEMINI_MODEL = 'gemma-3-4b-it'
 TEMPERATURE = 0.3
 TOP_P = 0.8
@@ -19,15 +16,11 @@ MAX_TOKENS = 1024
 
 nlp_processor = NLPProcessor()
 
-# =============================================================================
-# FUNÇÕES DE UTILIDADE
-# =============================================================================
-
 def get_gemini_client():
     api_key = os.getenv("GOOGLE_API_KEY")
     
     if not api_key:
-        print("❌ GOOGLE_API_KEY não encontrada!")
+        print("GOOGLE_API_KEY não encontrada!")
         raise ValueError("GOOGLE_API_KEY não encontrada no .env")
         
     return genai.Client(api_key=api_key)
@@ -48,58 +41,43 @@ def extract_json_from_text(text: str) -> dict:
     
     raise json.JSONDecodeError("JSON não encontrado no texto", text, 0)
 
-
-# =============================================================================
-# PARSING DE RESPOSTA DO GEMINI
-# =============================================================================
-
 def parse_gemini_response(response_text: str) -> dict:
-    print(f"📄 Resposta bruta do Gemini:\n{response_text}\n")
+    print(f"Resposta bruta do Gemini:\n{response_text}\n")
     
-    # Estratégia 1: Tentar parsear diretamente
     try:
         cleaned_text = remove_markdown_blocks(response_text)
         parsed = json.loads(cleaned_text)
-        print("✅ JSON parseado com sucesso!")
+        print("JSON parseado com sucesso!")
         return parsed
         
     except json.JSONDecodeError:
         pass
     
-    # Estratégia 2: Extrair JSON do texto
     try:
         parsed = extract_json_from_text(response_text)
-        print("✅ JSON extraído do texto!")
+        print("JSON extraído do texto!")
         return parsed
         
     except json.JSONDecodeError as e:
-        print(f"❌ Falha ao parsear JSON: {e}")
+        print(f"Falha ao parsear JSON: {e}")
         raise ValueError(f"Resposta do Gemini não contém JSON válido: {response_text[:200]}")
 
 
 def validate_gemini_result(result: dict) -> dict:
-    """Valida e normaliza a resposta do Gemini"""
     required_fields = ['classification', 'confidence', 'suggestion', 'color']
     
     for field in required_fields:
         if field not in result:
             raise ValueError(f"Campo obrigatório ausente: {field}")
     
-    # Normalizar classificação
     if result['classification'].upper() not in ['PRODUTIVO', 'IMPRODUTIVO']:
         raise ValueError(f"Classificação inválida: {result['classification']}")
     
-    # Validar confiança
     if not isinstance(result['confidence'], (int, float)) or not 0 <= result['confidence'] <= 1:
-        print(f"⚠️ Confiança inválida ({result['confidence']}), usando 0.5")
+        print(f"Confiança inválida ({result['confidence']}), usando 0.5")
         result['confidence'] = 0.5
     
     return result
-
-
-# =============================================================================
-# GERAÇÃO DE PROMPT
-# =============================================================================
 
 def build_classification_prompt(email_text: str, nlp_data) -> str:
     keywords_str = ', '.join([w for w, _ in nlp_data.keywords[:5]])
@@ -141,18 +119,9 @@ Retorne no formato JSON abaixo:
 IMPORTANTE: A "suggestion" deve ser específica ao conteúdo recebido.
 """
 
-
-# =============================================================================
-# FALLBACK NLP
-# =============================================================================
-
 def create_nlp_fallback_result(nlp_result, error: Exception = None) -> dict:
-    """
-    Gera resultado baseado apenas no NLP quando Gemini falha
-    """
     sentiment = nlp_result.sentiment.sentiment
     
-    # Define resposta baseada no sentimento
     if sentiment == 'produtivo':
         suggestion = (
             "Prezado(a),\n\n"
@@ -170,7 +139,6 @@ def create_nlp_fallback_result(nlp_result, error: Exception = None) -> dict:
             "Equipe de Atendimento"
         )
     
-    # Prepara dados NLP para frontend
     nlp_data = {
         "keywords": [{"word": word, "count": count} for word, count in nlp_result.keywords[:10]],
         "sentiment": sentiment.upper(),
@@ -179,7 +147,6 @@ def create_nlp_fallback_result(nlp_result, error: Exception = None) -> dict:
         "unproductive_signals": nlp_result.sentiment.unproductive_count,
     }
     
-    # Justificativa
     if error:
         justification = f"Classificação baseada em análise NLP local (Gemini indisponível). Detectados {nlp_result.sentiment.productive_count} sinais produtivos e {nlp_result.sentiment.unproductive_count} sinais improdutivos."
     else:
@@ -194,27 +161,17 @@ def create_nlp_fallback_result(nlp_result, error: Exception = None) -> dict:
         "nlp_data": nlp_data,
     }
 
-
-# =============================================================================
-# CLASSIFICAÇÃO PRINCIPAL
-# =============================================================================
-
 def classify_email(email_content: str) -> dict:
-    """
-    Classifica email usando NLP + Gemini AI
-    """
-    print("\n🔄 Iniciando análise do email...")
+    print("\nIniciando análise do email...")
     
-    # Análise NLP
-    print("📊 Executando análise NLP...")
+    print("Executando análise NLP...")
     nlp_processor = NLPProcessor()
     nlp_result = nlp_processor.preprocess(email_content)
     
-    print(f"   ✓ Keywords: {[word for word, _ in nlp_result.keywords[:5]]}")
-    print(f"   ✓ Sentimento NLP: {nlp_result.sentiment.sentiment}")
-    print(f"   ✓ Confiança NLP: {nlp_result.sentiment.confidence}")
+    print(f" Keywords: {[word for word, _ in nlp_result.keywords[:5]]}")
+    print(f" Sentimento NLP: {nlp_result.sentiment.sentiment}")
+    print(f" Confiança NLP: {nlp_result.sentiment.confidence}")
     
-    # Prepara dados NLP para retornar ao frontend
     nlp_data = {
         "keywords": [{"word": word, "count": count} for word, count in nlp_result.keywords[:10]],
         "sentiment": nlp_result.sentiment.sentiment.upper(),
@@ -223,9 +180,8 @@ def classify_email(email_content: str) -> dict:
         "unproductive_signals": nlp_result.sentiment.unproductive_count,
     }
     
-    # Consulta Gemini
     try:
-        print("🤖 Consultando Google Gemini...")
+        print("Consultando Google Gemini...")
         client = get_gemini_client()
         
         prompt = build_classification_prompt(email_content, nlp_result)
@@ -243,21 +199,20 @@ def classify_email(email_content: str) -> dict:
             config=config
         )
         
-        print("🔍 Processando resposta...")
+        print("Processando resposta...")
         result = parse_gemini_response(response.text)
         validate_gemini_result(result)
         
-        print(f"✅ Classificação: {result['classification']}")
-        print(f"✅ Confiança: {result['confidence']}")
-        print(f"✅ Cor: {result['color']}\n")
+        print(f" Classificação: {result['classification']}")
+        print(f" Confiança: {result['confidence']}")
+        print(f" Cor: {result['color']}\n")
         
-        # Adiciona dados NLP ao resultado
         result['nlp_data'] = nlp_data
         
         return result
         
     except Exception as error:
-        print(f"⚠️ Erro ao consultar Gemini: {error}")
-        print("🔄 Usando fallback (apenas NLP)\n")
+        print(f"Erro ao consultar Gemini: {error}")
+        print("Usando fallback (apenas NLP)\n")
         
         return create_nlp_fallback_result(nlp_result, error)

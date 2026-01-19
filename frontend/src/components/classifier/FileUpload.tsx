@@ -52,7 +52,6 @@ export const FileUpload: React.FC<FileUploadProps> = ({
     const droppedFiles = e.dataTransfer.files;
       if (droppedFiles && droppedFiles.length > 0) {
       const selectedFile = droppedFiles[0];
-      // ✅ Adiciona verificação se selectedFile existe
       if (selectedFile && validateFile(selectedFile)) {
         onFileSelect(selectedFile);
       }

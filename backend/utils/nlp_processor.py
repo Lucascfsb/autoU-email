@@ -5,22 +5,15 @@ from typing import Dict, List, Set, Tuple
 from enum import Enum
 
 class Sentiment(Enum):
-    """Enumeração de sentimentos possíveis"""
     PRODUCTIVE = "produtivo"
     UNPRODUCTIVE = "improdutivo"
     NEUTRAL = "neutro"
 
 
-# Configuração de limites
 MIN_WORD_LENGTH = 3
 TOP_KEYWORDS_COUNT = 5
 MIN_STEMMING_LENGTH = 4
 NEUTRAL_CONFIDENCE = 0.5
-
-
-# =============================================================================
-# STOP WORDS (PT + EN)
-# =============================================================================
 
 STOP_WORDS_PT: Set[str] = {
     'a', 'o', 'e', 'é', 'de', 'da', 'do', 'em', 'um', 'uma', 'os', 'as',
@@ -37,10 +30,6 @@ STOP_WORDS_EN: Set[str] = {
 }
 
 STOP_WORDS: Set[str] = STOP_WORDS_PT | STOP_WORDS_EN
-
-# =============================================================================
-# SINAIS DE PRODUTIVIDADE
-# =============================================================================
 
 PRODUCTIVE_KEYWORDS_PT: Set[str] = {
     'urgente', 'urgência', 'solicitação', 'solicito', 'solicitar',
@@ -74,10 +63,6 @@ PRODUCTIVE_KEYWORDS_EN: Set[str] = {
 
 PRODUCTIVE_KEYWORDS: Set[str] = PRODUCTIVE_KEYWORDS_PT | PRODUCTIVE_KEYWORDS_EN
 
-# =============================================================================
-# SINAIS DE IMPRODUTIVIDADE
-# =============================================================================
-
 UNPRODUCTIVE_KEYWORDS_PT: Set[str] = {
     'parabéns', 'feliz', 'felizes', 'felicidade',
     'natal', 'ano novo', 'aniversário', 'páscoa',
@@ -100,10 +85,6 @@ UNPRODUCTIVE_KEYWORDS_EN: Set[str] = {
 
 UNPRODUCTIVE_KEYWORDS: Set[str] = UNPRODUCTIVE_KEYWORDS_PT | UNPRODUCTIVE_KEYWORDS_EN
 
-# =============================================================================
-# SUFIXOS PARA STEMMING
-# =============================================================================
-
 STEMMING_SUFFIXES_PT: List[str] = [
     'mente', 'ação', 'ções', 'ador', 'adora', 'endo', 'ando',
     'idade', 'ismo', 'ista', 'oso', 'osa', 'ivo', 'iva'
@@ -116,20 +97,14 @@ STEMMING_SUFFIXES_EN: List[str] = [
 
 STEMMING_SUFFIXES: List[str] = STEMMING_SUFFIXES_PT + STEMMING_SUFFIXES_EN
 
-# =============================================================================
-# DATA CLASSES
-# =============================================================================
-
 @dataclass
 class SentimentScore:
-    """Resultado da análise de sentimento"""
     sentiment: str
     confidence: float
     productive_count: int
     unproductive_count: int
 
     def to_dict(self) -> Dict:
-        """Converte para dicionário"""
         return {
             'sentiment': self.sentiment,
             'confidence': self.confidence,
@@ -140,13 +115,11 @@ class SentimentScore:
 
 @dataclass
 class TextStats:
-    """Estatísticas do texto processado"""
     original_word_count: int
     processed_word_count: int
     unique_word_count: int
 
     def to_dict(self) -> Dict:
-        """Converte para dicionário"""
         return {
             'palavras_original': self.original_word_count,
             'palavras_processadas': self.processed_word_count,
@@ -156,24 +129,18 @@ class TextStats:
 
 @dataclass
 class ProcessingResult:
-    """Resultado completo do processamento NLP"""
     processed_text: str
     keywords: List[Tuple[str, int]]
     sentiment: SentimentScore
     stats: TextStats
 
     def to_dict(self) -> Dict:
-        """Converte para dicionário (compatibilidade com código legado)"""
         return {
             'processed_text': self.processed_text,
             'keywords': self.keywords,
             'sentiment': self.sentiment.to_dict(),
             'stats': self.stats.to_dict()
         }
-
-# =============================================================================
-# CLASSE PRINCIPAL
-# =============================================================================
 
 class NLPProcessor:
     def __init__(
@@ -188,112 +155,56 @@ class NLPProcessor:
         self.unproductive_signals = unproductive_signals
         self.stemming_suffixes = stemming_suffixes
     
-    # =========================================================================
-    # MÉTODOS DE LIMPEZA E NORMALIZAÇÃO
-    # =========================================================================
-    
     def clean_text(self, text: str) -> str:
-        """
-        Remove caracteres especiais e normaliza espaços
-
-        """
-        # Manter apenas letras (com acentos), números e espaços
         text_cleaned = re.sub(
             r'[^a-záàâãéèêíïóôõöúçñA-ZÁÀÂÃÉÈÊÍÏÓÔÕÖÚÇÑ0-9\s]',
             ' ',
             text
         )
         
-        # Remover espaços múltiplos
         text_normalized = re.sub(r'\s+', ' ', text_cleaned)
         
         return text_normalized.strip().lower()
     
     def tokenize(self, text: str) -> List[str]:
-        """
-        Divide texto em palavras (tokens)
-        
-        """
         return text.split()
     
     def filter_stop_words(self, tokens: List[str]) -> List[str]:
-        """
-        Remove stop words e palavras muito curtas
-
-        """
         return [
             token for token in tokens
             if len(token) >= MIN_WORD_LENGTH and token not in self.stop_words
         ]
     
     def tokenize_and_filter(self, text: str) -> List[str]:
-        """
-        Pipeline: tokenizar → remover stop words
-
-        """
         tokens = self.tokenize(text)
         return self.filter_stop_words(tokens)
     
-    # =========================================================================
-    # STEMMING
-    # =========================================================================
-    
     def apply_stemming(self, word: str) -> str:
-        """
-        Reduz palavra à sua raiz (stemming simplificado PT/EN)
-        
-        Examples:
-            >>> processor = NLPProcessor()
-            >>> processor.apply_stemming("solicitação")
-            'solicit'
-            >>> processor.apply_stemming("updating")
-            'updat'
-        """
-        # Tentar remover sufixos conhecidos
         for suffix in self.stemming_suffixes:
             if word.endswith(suffix) and len(word) > len(suffix) + 2:
                 return word[:-len(suffix)]
         
-        # Remover 's' plural (ambos idiomas)
         if word.endswith('s') and len(word) > MIN_STEMMING_LENGTH:
             return word[:-1]
         
         return word
     
     def stem_tokens(self, tokens: List[str]) -> List[str]:
-        """
-        Aplica stemming em lista de tokens
-        
 
-        """
         return [self.apply_stemming(token) for token in tokens]
-    
-    # =========================================================================
-    # EXTRAÇÃO DE FEATURES
-    # =========================================================================
     
     def extract_keywords(
         self,
         tokens: List[str],
         top_n: int = TOP_KEYWORDS_COUNT
     ) -> List[Tuple[str, int]]:
-        """
-        Extrai as N palavras mais frequentes
-        
-        """
+
         word_frequency = Counter(tokens)
         return word_frequency.most_common(top_n)
     
-    # =========================================================================
-    # ANÁLISE DE SENTIMENTO
-    # =========================================================================
     
     def calculate_sentiment_score(self, tokens: List[str]) -> SentimentScore:
-        """
-        Calcula score de produtividade baseado em keywords
         
-        """
-        # Contar sinais produtivos e improdutivos
         productive_count = sum(
             1 for token in tokens
             if token in self.productive_signals
@@ -306,7 +217,6 @@ class NLPProcessor:
         
         total_signals = productive_count + unproductive_count
         
-        # Caso neutro: sem sinais claros
         if total_signals == 0:
             return SentimentScore(
                 sentiment=Sentiment.NEUTRAL.value,
@@ -315,7 +225,6 @@ class NLPProcessor:
                 unproductive_count=0
             )
         
-        # Determinar sentimento dominante
         is_productive = productive_count > unproductive_count
         confidence = max(productive_count, unproductive_count) / total_signals
         
@@ -330,35 +239,20 @@ class NLPProcessor:
             productive_count=productive_count,
             unproductive_count=unproductive_count
         )
-    
-    # =========================================================================
-    # PIPELINE COMPLETO
-    # =========================================================================
-    
-    def preprocess(self, text: str) -> ProcessingResult:
-        """
-        Pipeline completo de processamento NLP
         
-        """
-        # Estatísticas do texto original
+    def preprocess(self, text: str) -> ProcessingResult:
         original_word_count = len(text.split())
         
-        # 1. Limpar texto
         cleaned_text = self.clean_text(text)
         
-        # 2 e 3. Tokenizar e filtrar stop words
         filtered_tokens = self.tokenize_and_filter(cleaned_text)
         
-        # 4. Aplicar stemming
         stemmed_tokens = self.stem_tokens(filtered_tokens)
         
-        # 5. Extrair keywords
         keywords = self.extract_keywords(stemmed_tokens)
         
-        # 6. Análise de sentimento
         sentiment = self.calculate_sentiment_score(stemmed_tokens)
         
-        # 7. Estatísticas
         stats = TextStats(
             original_word_count=original_word_count,
             processed_word_count=len(stemmed_tokens),
@@ -372,23 +266,10 @@ class NLPProcessor:
             stats=stats
         )
 
-# =============================================================================
-# FUNÇÕES HELPER (COMPATIBILIDADE)
-# =============================================================================
-
 def process_text(text: str) -> Dict:
-    """
-    Função de conveniência para processar texto rapidamente
-
-    """
     processor = NLPProcessor()
     result = processor.preprocess(text)
     return result.to_dict()
-
-
-# =============================================================================
-# EXEMPLO DE USO
-# =============================================================================
 
 if __name__ == "__main__":
     # Exemplo de uso
@@ -408,7 +289,7 @@ if __name__ == "__main__":
     print("=" * 60)
     print("EXEMPLO DE PROCESSAMENTO NLP")
     print("=" * 60)
-    print(f"\n📝 Keywords: {result.keywords}")
-    print(f"📊 Sentimento: {result.sentiment.sentiment}")
-    print(f"🎯 Confiança: {result.sentiment.confidence}")
-    print(f"📈 Stats: {result.stats.to_dict()}")
+    print(f"\n Keywords: {result.keywords}")
+    print(f" Sentimento: {result.sentiment.sentiment}")
+    print(f" Confiança: {result.sentiment.confidence}")
+    print(f" Stats: {result.stats.to_dict()}")
