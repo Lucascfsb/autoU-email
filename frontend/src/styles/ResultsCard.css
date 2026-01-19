@@ -235,6 +235,7 @@
 
 .nlp-metrics h4 {
   font-size: 16px;
+  margin: 0;
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 12px;
